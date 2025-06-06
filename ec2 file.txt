@@ -1,0 +1,31 @@
+# Terraform block
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "6.0.0-beta3"  
+    }
+  }
+}
+
+# AWS Provider block
+provider "aws" {
+  region = "ap-south-1"  # Mumbai region
+}
+
+
+# Resource block to launch EC2 instance
+resource "aws_instance" "devops_instance" {
+  ami           = "ami-0f535a71b34f2d44a"                #Launches Amazon Linux 2023 AMI
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "DevOps-Instance"
+  }
+}
+
+# Output block to print the public IP
+output "instance_public_ip" {
+  description = "Public IP of the EC2 instance"
+  value       = aws_instance.devops_instance.public_ip
+}

@@ -1,0 +1,28 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "CloudWatch Alarm for High CPU Utilization on Devops-Instance",
+  "Resources": {
+    "HighCPUAlarm": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmName": "HighCPUAlarm",
+        "AlarmDescription": "Alarm when EC2 CPU utilization exceeds 80% for 5 minutes",
+        "Namespace": "AWS/EC2",
+        "MetricName": "CPUUtilization",
+        "Statistic": "Average",
+        "Period": 60,
+        "EvaluationPeriods": 5,
+        "Threshold": 80.0,
+        "ComparisonOperator": "GreaterThanThreshold",
+        "Dimensions": [
+          {
+            "Name": "InstanceId",
+            "Value": "i-09d41f3874198238b"
+          }
+        ],
+        "Unit": "Percent",
+        "TreatMissingData": "notBreaching"
+      }
+    }
+  }
+}
